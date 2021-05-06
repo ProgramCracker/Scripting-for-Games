@@ -528,10 +528,10 @@ RectTransform:
   m_Father: {fileID: 606551363}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -0.8, y: -79.22}
-  m_SizeDelta: {x: 303.24875, y: -190.36919}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -2.94, y: -74.55}
+  m_SizeDelta: {x: -37.229248, y: -244.39665}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &586860902
 MonoBehaviour:
@@ -545,11 +545,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 321af989cd4acbe4089d6eb14fe36ca3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventoryPrefab: {fileID: 1113425076169440538, guid: aebccb7156b4042459fac8b1a3568466,
+    type: 3}
   inventory: {fileID: 11400000, guid: ff8ef396862657241a51af18329eb940, type: 2}
-  inventoryStartX: -132
-  inventoryStartY: 50
-  spaceBetweenItemsOnX: 33
-  spaceBetweenItemsOnY: 35
+  inventoryStartX: -155
+  inventoryStartY: 46
+  spaceBetweenItemsOnX: 39
+  spaceBetweenItemsOnY: 39
   amountOfColumns: 9
 --- !u!114 &586860903
 MonoBehaviour:
@@ -564,7 +566,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:

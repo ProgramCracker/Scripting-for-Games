@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 345237a9c683c1f4aae263adf5186fb8, type: 3}
   m_Name: CobbleStone
   m_EditorClassIdentifier: 
-  prefabObject: {fileID: 219805210121471665, guid: 46f3782646c9288438adbb7dbe44ad58,
-    type: 3}
+  Id: 1
+  UIdisplay: {fileID: 21300000, guid: 42455b14254ba484e9e722e8d2c2372d, type: 3}
   type: 0
   description: 

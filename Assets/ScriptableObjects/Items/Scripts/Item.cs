@@ -10,9 +10,22 @@ public enum ItemType
 
 public abstract class Item : ScriptableObject
 {
-    public GameObject prefabObject;
+    public int Id; 
+    public Sprite UIdisplay;
     public ItemType type;
 
     [TextArea(15, 20)]
     public string description;
+}
+
+[System.Serializable]
+public class InventoryItem
+{
+    public string Name;
+    public int ID;
+    public InventoryItem(Item item)
+    {
+        Name = item.name;
+        ID = item.Id;
+    }
 }

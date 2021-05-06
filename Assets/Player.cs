@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
         {
             if (Dirt)
             {
-                inventory.AddItem(Dirt, 1);
+                inventory.AddItem(new InventoryItem(Dirt), 1);
             }
         }
 
@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
         {
             if (CobbleStone)
             {
-                inventory.AddItem(CobbleStone, 1);
+                inventory.AddItem(new InventoryItem(CobbleStone), 1);
             }
         }
 
@@ -40,6 +40,6 @@ public class Player : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        inventory.Container.Clear();
+       inventory.Container.Items = new InventorySlot[27];
     }
 }

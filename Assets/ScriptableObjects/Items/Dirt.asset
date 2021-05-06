@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 345237a9c683c1f4aae263adf5186fb8, type: 3}
   m_Name: Dirt
   m_EditorClassIdentifier: 
-  prefabObject: {fileID: 5020419383168182620, guid: 6d3877287fd6b9a41b633a575bab648b,
-    type: 3}
+  Id: 0
+  UIdisplay: {fileID: 21300000, guid: abe0fcd3c94a9f4489fe0838dd3fbbdc, type: 3}
   type: 0
   description: 
