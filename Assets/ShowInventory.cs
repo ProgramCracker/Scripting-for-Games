@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using UnityEngine.Events;
 
 public class ShowInventory : MonoBehaviour
 {
+    public MouseItem mouseItem = new MouseItem();
+
     public GameObject inventoryPrefab;
     public Inventory inventory;
 
@@ -56,9 +60,77 @@ public class ShowInventory : MonoBehaviour
             var obj = Instantiate(inventoryPrefab, Vector3.zero, Quaternion.identity, transform);
             obj.GetComponent<RectTransform>().localPosition = GetPos(i);
 
+            AddEvent(obj, EventTriggerType.PointerEnter, delegate { OnEnter(obj); });
+            AddEvent(obj, EventTriggerType.PointerExit, delegate { OnExit(obj); });
+            AddEvent(obj, EventTriggerType.BeginDrag, delegate { OnDragStart(obj); });
+            AddEvent(obj, EventTriggerType.EndDrag, delegate { OnDragEnd(obj); });
+            AddEvent(obj, EventTriggerType.Drag, delegate { OnDrag(obj); });
+
             itemsShown.Add(obj, inventory.Container.Items[i]);
         }
         
+    }
+
+    private void AddEvent(GameObject obj, EventTriggerType type, UnityAction<BaseEventData> action)
+    {
+        EventTrigger trigger = obj.GetComponent<EventTrigger>();
+        var eventTrigger = new EventTrigger.Entry();
+        eventTrigger.eventID = type;
+        eventTrigger.callback.AddListener(action);
+        trigger.triggers.Add(eventTrigger);
+    }
+
+    public void OnEnter(GameObject obj)
+    {
+        mouseItem.hoverObj = obj;
+        if (itemsShown.ContainsKey(obj))
+        {
+            mouseItem.hoverItem = itemsShown[obj];
+        }
+    }
+
+    public void OnExit(GameObject obj)
+    {
+        mouseItem.hoverObj = null;
+
+        mouseItem.hoverItem = null;
+        
+    }
+
+    public void OnDragStart(GameObject obj)
+    {
+        var mouseObject = new GameObject();
+        var rt = mouseObject.AddComponent<RectTransform>();
+        rt.sizeDelta = new Vector2(36, 36);
+        mouseObject.transform.SetParent(transform.parent);
+        if(itemsShown[obj].ID >= 0)
+        {
+            var img = mouseObject.AddComponent<Image>();
+            img.sprite = inventory.database.GetItem[itemsShown[obj].ID].UIdisplay;
+            img.raycastTarget = false;
+        }
+        mouseItem.obj = mouseObject;
+        mouseItem.item = itemsShown[obj];
+    }
+
+    public void OnDragEnd(GameObject obj)
+    {
+        if(mouseItem.hoverObj)
+        {
+            inventory.MoveItem(itemsShown[obj], itemsShown[mouseItem.hoverObj]);
+        }
+        else
+        {
+            inventory.RemoveItem(itemsShown[obj].item);
+        }
+        Destroy(mouseItem.obj);
+        mouseItem.item = null;
+    }
+
+    public void OnDrag(GameObject obj)
+    {
+        if (mouseItem.obj != null)
+            mouseItem.obj.GetComponent<RectTransform>().position = Input.mousePosition;
     }
 
     public Vector3 GetPos(int i)
@@ -66,4 +138,12 @@ public class ShowInventory : MonoBehaviour
         return new Vector3(inventoryStartX + (spaceBetweenItemsOnX *(i % amountOfColumns)),(inventoryStartY - (spaceBetweenItemsOnY * (i/amountOfColumns))), 0f);
     }
     
+}
+
+public class MouseItem
+{
+    public GameObject obj;
+    public InventorySlot item;
+    public InventorySlot hoverItem;
+    public GameObject hoverObj;
 }
