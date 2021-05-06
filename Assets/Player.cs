@@ -26,6 +26,16 @@ public class Player : MonoBehaviour
                 inventory.AddItem(CobbleStone, 1);
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            inventory.Save();
+        }
+
+        if (Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
+            inventory.Load();
+        }
     }
 
     private void OnApplicationQuit()

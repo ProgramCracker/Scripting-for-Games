@@ -546,9 +546,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: {fileID: 11400000, guid: ff8ef396862657241a51af18329eb940, type: 2}
-  inventoryStartX: -130
+  inventoryStartX: -132
   inventoryStartY: 50
-  spaceBetweenItemsOnX: 35
+  spaceBetweenItemsOnX: 33
   spaceBetweenItemsOnY: 35
   amountOfColumns: 9
 --- !u!114 &586860903
