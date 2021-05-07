@@ -34,15 +34,15 @@ public class ShowInventory : MonoBehaviour
 
     public void UpdateSlots()
     {
-        foreach (KeyValuePair<GameObject, InventorySlot> _slot in itemsShown)
+        foreach (KeyValuePair<GameObject, InventorySlot> _slot in itemsShown) // for every item currently in the inventory check...
         {
-            if(_slot.Value.ID >= 0)
+            if(_slot.Value.ID >= 0) // if there is no item in the slot, look like this
             {
                 _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = inventory.database.GetItem[_slot.Value.item.ID].UIdisplay;
                 _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
                 _slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = _slot.Value.amount == 1 ? "" : _slot.Value.amount.ToString("n0");
             }
-            else
+            else // if there are items in the slot, look like this
             {
                 _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = null;
                 _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
