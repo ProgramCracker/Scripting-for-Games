@@ -21,13 +21,12 @@ public class ShowInventory : MonoBehaviour
     public int amountOfColumns;
 
     Dictionary<GameObject, InventorySlot> itemsShown = new Dictionary<GameObject, InventorySlot> ();
-    // Start is called before the first frame update
+
     void Start()
     {
         CreateSlots();
     }
 
-    // Update is called once per frame
     void Update()
     {
         UpdateSlots();
@@ -80,7 +79,7 @@ public class ShowInventory : MonoBehaviour
         trigger.triggers.Add(eventTrigger);
     }
 
-    public void OnEnter(GameObject obj)
+    public void OnEnter(GameObject obj) // when the player's cursor hovers over an inventory slot
     {
         mouseItem.hoverObj = obj;
         if (itemsShown.ContainsKey(obj))
@@ -89,7 +88,7 @@ public class ShowInventory : MonoBehaviour
         }
     }
 
-    public void OnExit(GameObject obj)
+    public void OnExit(GameObject obj) // when the player's cursor leaves an inventory slot
     {
         mouseItem.hoverObj = null;
 
@@ -97,14 +96,15 @@ public class ShowInventory : MonoBehaviour
         
     }
 
-    public void OnDragStart(GameObject obj)
+    public void OnDragStart(GameObject obj) // when the player starts to drag
     {
         var mouseObject = new GameObject();
         var rt = mouseObject.AddComponent<RectTransform>();
         rt.sizeDelta = new Vector2(36, 36);
         mouseObject.transform.SetParent(transform.parent);
-        if(itemsShown[obj].ID >= 0)
+        if(itemsShown[obj].ID >= 0) // identifies the item the user has clicked on
         {
+            //retrieve the sprite from the target item
             var img = mouseObject.AddComponent<Image>();
             img.sprite = inventory.database.GetItem[itemsShown[obj].ID].UIdisplay;
             img.raycastTarget = false;
@@ -113,13 +113,13 @@ public class ShowInventory : MonoBehaviour
         mouseItem.item = itemsShown[obj];
     }
 
-    public void OnDragEnd(GameObject obj)
+    public void OnDragEnd(GameObject obj) // when the player lets go of the item
     {
-        if(mouseItem.hoverObj)
+        if(mouseItem.hoverObj) // if there is an object in the target slot
         {
             inventory.MoveItem(itemsShown[obj], itemsShown[mouseItem.hoverObj]);
         }
-        else
+        else //if the location is empty
         {
             inventory.RemoveItem(itemsShown[obj].item);
         }
@@ -127,7 +127,7 @@ public class ShowInventory : MonoBehaviour
         mouseItem.item = null;
     }
 
-    public void OnDrag(GameObject obj)
+    public void OnDrag(GameObject obj) // while the player is dragging the item
     {
         if (mouseItem.obj != null)
             mouseItem.obj.GetComponent<RectTransform>().position = Input.mousePosition;

@@ -46,9 +46,19 @@ public class Inventory : ScriptableObject
 
     public void MoveItem(InventorySlot item1, InventorySlot item2)
     {
-        InventorySlot temp = new InventorySlot(item2.ID, item2.item, item2.amount);
-        item2.UpdateSlot(item1.ID, item1.item, item1.amount);
-        item1.UpdateSlot(temp.ID, temp.item, temp.amount);
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            InventorySlot temp = new InventorySlot(item2.ID, item2.item, item2.amount);
+            item2.UpdateSlot(item1.ID, item1.item, item1.amount);
+            item1.UpdateSlot(temp.ID, temp.item, temp.amount);
+        }
+        else
+        {
+
+            InventorySlot temp = new InventorySlot(item2.ID, item2.item, item2.amount);
+            item2.UpdateSlot(item1.ID, item1.item, item1.amount);
+            item1.UpdateSlot(temp.ID, temp.item, temp.amount);
+        }
     }
 
     public void RemoveItem(InventoryItem _item)
@@ -65,13 +75,6 @@ public class Inventory : ScriptableObject
     [ContextMenu("Save")]
     public void Save()
     {
-        /*
-        string saveData = JsonUtility.ToJson(this, true);
-        BinaryFormatter BF = new BinaryFormatter();
-        FileStream file = File.Create(string.Concat(Application.persistentDataPath, savePath));
-        BF.Serialize(file, saveData);
-        file.Close();
-        */
 
         IFormatter formatter = new BinaryFormatter();
         Stream stream = new FileStream(string.Concat(Application.persistentDataPath, savePath), FileMode.Create, FileAccess.Write);
@@ -84,12 +87,6 @@ public class Inventory : ScriptableObject
     {
         if(File.Exists(string.Concat(Application.persistentDataPath, savePath)))
         {
-            /*
-            BinaryFormatter BF = new BinaryFormatter();
-            FileStream file = File.Open(string.Concat(Application.persistentDataPath, savePath), FileMode.Open);
-            JsonUtility.FromJsonOverwrite(BF.Deserialize(file).ToString(), this);
-            file.Close();
-            */
 
             IFormatter formatter = new BinaryFormatter();
             Stream stream = new FileStream(string.Concat(Application.persistentDataPath, savePath), FileMode.Open, FileAccess.Read);
